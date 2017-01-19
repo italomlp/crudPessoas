@@ -1,0 +1,58 @@
+<div class="jumbotron">
+    <h1 class="text-center">Bem vindo ao Crud de Pessoas</h1>
+</div>
+
+<a type="button" name="button" class="btn btn-primary" ng-href="#/pessoa">Novo</a>
+
+<div ng-show="pessoas.length">
+    <p>Pessoas cadastradas: <input class="navbar-form" ng-model="filtro" type="search" placeholder="Filtrar"></p>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="pessoa in pessoas | filter: filtro">
+                <td>{{pessoa.nome}}</td>
+                <td>{{pessoa.sobrenome}}</td>
+                <td>{{pessoa.email}}</td>
+                <td>
+                    <div class="btn-group">
+                        <a ng-href="#/pessoa/{{pessoa._id}}" class="btn btn-info">Detalhes</a>
+
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#removePessoaConfirma">Remover</button>
+
+                        <div class="modal fade" id="removePessoaConfirma">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Remover pessoa</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Tem certeza que deseja remover {{pessoa.nome + " " + pessoa.sobrenome}} do sistema?</p>
+                                        <div class="alert alert-danger">
+                                            <strong>Cuidado!</strong> Essa ação não pode ser desfeita.
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="remove(pessoa)" class="btn btn-danger" data-dismiss="modal">Remover</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<button ng-click="remove(pessoa)" class="btn btn-danger">Remover</button>-->
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<p class="text-info" ng-hide="pessoas.length">
+    <br>
+    Não há pessoas cadastradas.
+</p>
